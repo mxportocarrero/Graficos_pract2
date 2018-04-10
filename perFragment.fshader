@@ -1,4 +1,4 @@
-#version 410
+#version 150
 
 in vec4 Position;
 in vec3 Normal;
@@ -32,7 +32,7 @@ uniform FogInfo Fog;
 
 uniform int Fog_Type;
 
-layout( location = 0 ) out vec4 FragColor;
+out vec4 FragColor;
 
 vec3 ads(int lightIndex, vec4 position, vec3 norm){
 

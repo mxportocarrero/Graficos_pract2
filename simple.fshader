@@ -1,8 +1,8 @@
-#version 410
+#version 150
 
 in vec3 LightIntensity;
 
-layout(location = 0) out vec4 FragColor;
+out vec4 FragColor;
 
 uniform int LightingEnabled;
 

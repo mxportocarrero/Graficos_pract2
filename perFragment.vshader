@@ -1,6 +1,6 @@
-#version 400
-layout (location = 0) in vec3 VertexPosition;
-layout (location = 1) in vec3 VertexNormal;
+#version 150
+in vec3 VertexPosition;
+in vec3 VertexNormal;
 
 out vec4 Position;
 out vec3 Normal;
