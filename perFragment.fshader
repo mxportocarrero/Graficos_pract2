@@ -59,16 +59,14 @@ void main(){
     	float dist = abs(Position.z);
 	    float fogFactor;
 
-	    switch(Fog_Type){
-	    	case 1:
+	    if(Fog_Type == 1)
 	    		fogFactor = (Fog.maxDist - dist) / (Fog.maxDist - Fog.minDist);
-	    		break;
-	    	case 2:
+	    if(Fog_Type == 2)
 	    		fogFactor = exp(-Fog.density * dist);
-	    	case 3:
+	    if(Fog_Type == 3)
 	    		fogFactor = exp(- pow(Fog.density * dist,2.0));
-	    }
-	    
+
+
 	    fogFactor = clamp(fogFactor,0.0,1.0);
 
     	Color = mix(vec3(Fog.color), shadeColor, fogFactor);
