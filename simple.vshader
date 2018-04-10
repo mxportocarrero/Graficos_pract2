@@ -12,16 +12,20 @@ struct LightInfo{
     vec3 Ls; //Intensidad Luz especular
 };
 
+
 uniform LightInfo Lights[2];
 
 struct MaterialInfo{
     vec3 Ka; // Reflectividad Ambiental
+
+
     vec3 Kd; // Difusa
     vec3 Ks; // Especular
     float Shininess; // Factor de brillo
 };
 
 uniform MaterialInfo Material;
+
 
 uniform mat4 ModelViewMatrix;
 
@@ -86,15 +90,32 @@ void main(){
 void main(){
         vec3 eyeNorm = normalize(NormalMatrix * VertexNormal);
         vec4 eyeCoords = ModelViewMatrix * vec4(VertexPosition,1.0);
+=======
+uniform mat4 mv;
+uniform mat3 NormalMatrix;
+uniform mat4 ProjectionMatrix;
+uniform mat4 MVP;
+
+uniform int LightingEnabled;
+
+void main(){
+        vec3 tnorm = normalize(NormalMatrix * VertexNormal);
+        vec4 eyeCoords = mv * vec4(VertexPosition,1.0);
+>>>>>>> a578787f1f8ed485ece686690b2385c21491820d
 
         vec3 s = normalize(vec3(Light.Position - eyeCoords));
         vec3 v = normalize(-eyeCoords.xyz);
         vec3 r = reflect(-s,tnorm);
+<<<<<<< HEAD
 
         vec3 ambient = Light.La * Material.Ka;
 
         float sDotN = max( dot(s,tnorm),0.0);
         
+=======
+        vec3 ambient = Light.La * Material.Ka;
+        float sDotN = max( dot(s,tnorm),0.0);
+>>>>>>> a578787f1f8ed485ece686690b2385c21491820d
         vec3 diffuse = Light. Ld * Material.Kd * sDotN;
         vec3 spec = vec3(0.0);
 
@@ -105,4 +126,6 @@ void main(){
     gl_Position = MVP * vec4(VertexPosition,1.0);
 
 }
+<<<<<<< HEAD
 **/
+

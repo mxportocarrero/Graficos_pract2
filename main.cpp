@@ -3,8 +3,10 @@ PRACTICA NRO - 2: Animaciones y efectos con Shaders
 Autor: Max W. Portocarrero
 **/
 
+
 #include "sphere.h"
 #include "loadshader.h"
+
 
 
 /**VARIABLES GLOBALES**/
@@ -12,12 +14,14 @@ const char *filename;
 Sphere *sphere;
 
 /**Variables OpenGL*/
+
 enum VAO_IDs{mySphere,extras,NumVAOs};
 enum Buffer_IDs{ArrayBuffer,NormalBuffer,extraBuffer,NumBuffers};
 enum Attrib_IDs{vPos = 0,nPos = 1};
 enum eAttrib_IDs{eColor = 0, ePos = 1,eNormal = 2};
 
 GLuint program1,program2,program3,curr_Program;       /* shader program object id */
+
 
 
 /**VARIABLES PARA LA ANIMACION**/
@@ -31,6 +35,7 @@ float t = 0.0f;
 float angle = 0.0f;
 
 /**VARIABLES PARA ILUMINACION**/
+
 mat4 Model,View,Projection,MVP,VP,M,V;
 mat4 ModelViewMatrix;
 mat3 NormalMatrix,NormalMatrix2;
@@ -88,6 +93,7 @@ FogProperty Fog = {
 /**VARIABLES PARA LOS MENUS**/
 enum perNormal{perVertexNormal,perFaceNormal};
 enum SmoothFlat{SmoothShading,FlatShading};
+
 bool isWireframeEnabled = false;
 int isLightingEnabled = 1;
 bool isIdling = false;
@@ -96,6 +102,7 @@ int _x=0,_y=0,_z=0;
 
 GLuint VAOs[NumVAOs];
 GLuint Buffers[NumBuffers];
+
 bool ShadingType = FlatShading;
 bool NormalType = perVertexNormal;
 
@@ -116,15 +123,19 @@ void MVP_handle(){
         Paths[A]-Paths[C],
     };
 
+
     float dirAngles[3] = { atan2(dirVectors[A_to_B].z , dirVectors[A_to_B].x) * 180.0 /PI,
                             atan2(dirVectors[B_to_C].z , dirVectors[B_to_C].x)* 180.0 /PI,
                             atan2(dirVectors[C_to_A].z , dirVectors[C_to_A].x)* 180.0 /PI};
+
 
     mat4 extraRotation;
     switch(currentPath){
         case A_to_B:
             displacement = (1.0f - t) * Paths[A] + t * Paths[B];
+
             extraRotation = glm::rotate(mat4(),dirAngles[A_to_B] ,vec3(0.0,1.0,0.0));
+
             break;
         case B_to_C:
             displacement = (1.0f - t) * Paths[B] + t * Paths[C];
@@ -142,8 +153,10 @@ void MVP_handle(){
     //Model Matrix: Nuestro Modelo estara en el centro
     //mat4 Model = mat4(1.0f); //Matriz identidad
     Model = glm::translate(mat4(),displacement) *
+
             //extraRotation *
             glm::rotate(mat4(),angle,vec3(1.0,0.0,0.0));
+
 
     //Camera matrix
     View = glm::lookAt(
@@ -161,6 +174,7 @@ void MVP_handle(){
     // Multiplicacmos las matrices
     MVP = Projection * View * Model; //Observar el orden de multiplicación
     VP = Projection * View; //Para los objetos de referencia en el centro
+
 
     ModelViewMatrix = View * Model; // Usado para setear los puntos de luz
     NormalMatrix = mat3(transpose(inverse(View * Model)));
@@ -180,17 +194,20 @@ void init(){
     program2 = LoadShaders("perFragment.vshader","perFragment.fshader");
     program3 = LoadShaders("extra.vshader","extra.fshader");
 
+
     glGenVertexArrays(NumVAOs,VAOs);
     glBindVertexArray(VAOs[mySphere]);
 
     //Generamos nuestros buffers
     glGenBuffers(NumBuffers,Buffers);
 
+
     //Funciones adicionales
     MVP_handle();
 
     //Aqui dibujaremos los ejes y el plano
     /**----EXTRAS()-----**/
+
     glBindVertexArray(VAOs[extras]);
 
     glBindBuffer(GL_ARRAY_BUFFER, Buffers[extraBuffer]);
@@ -208,6 +225,7 @@ void display(){
     /**VAO 1**/
 
     glBindVertexArray(VAOs[mySphere]);
+
     if(ShadingType){
         glUseProgram(program1);
         curr_Program = program1;
@@ -261,6 +279,7 @@ void display(){
 
     uniformRegister(fogType,curr_Program,"Fog_Type");
 
+
     glBindBuffer(GL_ARRAY_BUFFER,Buffers[ArrayBuffer]);
     glEnableVertexAttribArray(vPos);
     glVertexAttribPointer(vPos,3,GL_FLOAT,GL_FALSE,sizeof(vec3),BUFFER_OFFSET(0));
@@ -272,7 +291,9 @@ void display(){
     if(isWireframeEnabled)
         glPolygonMode(GL_FRONT_AND_BACK,GL_LINE); // Funcion para activar e wireframe
 
+
         glDrawArrays(GL_TRIANGLES,0,sphere->num_Vertex());
+
 
     glDisableVertexAttribArray(vPos);
     glDisableVertexAttribArray(nPos);
@@ -286,6 +307,7 @@ void display(){
     /**VAO 2**/
 
     glBindVertexArray(VAOs[extras]);
+
     glBindBuffer(GL_ARRAY_BUFFER,Buffers[extraBuffer]);
 
     //DIBUJANDO EL PISO
@@ -317,13 +339,15 @@ void display(){
 
     glEnableVertexAttribArray(eColor);
     glVertexAttribPointer(eColor,3,GL_FLOAT, GL_FALSE, sizeof(VertexData),BUFFER_OFFSET(0));
-    
+
     glEnableVertexAttribArray(ePos);
     glVertexAttribPointer(ePos,3,GL_FLOAT, GL_FALSE,
                           sizeof(VertexData),BUFFER_OFFSET( sizeof(vertices[0].color) ));
 
+
         glLineWidth(1.5);
         glDrawArrays(GL_LINES,4,6);
+
 
     glDisableVertexAttribArray(eColor);
     glDisableVertexAttribArray(ePos);
@@ -338,7 +362,9 @@ void display(){
 void idle (void)
 {
     angle += 0.01;
+
     t += 0.001;
+
     if(t > 1.0f){
         currentPath++;
         t = 0.0f;
@@ -406,7 +432,9 @@ void myMouse(int button, int state, int x, int y){
 void menu(int id){
     switch(id){
         case 1:
+
             _x=0;_y=0;_z=0;
+
             break;
 
         case 2:
@@ -434,6 +462,7 @@ void Lighting_menu(int id){
 void Wireframe_menu(int id){
     switch(id){
         case 1:
+
             isWireframeEnabled = 0;
             break;
 
@@ -482,6 +511,7 @@ void Fog_menu(int id){
             break;
         case 4:
             fogType = exponential_square;
+
             break;
     }
     glutPostRedisplay();
@@ -541,6 +571,7 @@ int main(int argc, char ** argv){
     glutAddSubMenu("Normal Type",sub_menu4);
     glutAddSubMenu("Wire Frame",sub_menu2);
     glutAddSubMenu("Fog",sub_menu5);
+
     glutAddMenuEntry("Quit",6);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 
@@ -553,4 +584,6 @@ int main(int argc, char ** argv){
 
 
     glutMainLoop();
+
 }
+

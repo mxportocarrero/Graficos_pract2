@@ -23,7 +23,9 @@ using std::cerr;
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
 #include <glm/ext.hpp>
+
 
 typedef glm::vec3 vec3;
 typedef glm::mat4 mat4;
@@ -35,8 +37,6 @@ typedef glm::vec4 vec4;
 #define windowDIM 600
 
 #define PI 3.14159265
-
-
 
 
 #endif // INCLUDES_H
