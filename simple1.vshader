@@ -1,5 +1,5 @@
-#version 150 
-in vec3 vertexPosition_modelspace;
+#version 120 
+attribute vec3 vertexPosition_modelspace;
 
 void main(){
 

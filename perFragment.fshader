@@ -1,7 +1,7 @@
-#version 150
+#version 120
 
-in vec4 Position;
-in vec3 Normal;
+varying vec4 Position;
+varying vec3 Normal;
 
 struct LightInfo{
     vec4 Position;
@@ -32,7 +32,7 @@ uniform FogInfo Fog;
 
 uniform int Fog_Type;
 
-out vec4 FragColor;
+//out vec4 FragColor;
 
 vec3 ads(int lightIndex, vec4 position, vec3 norm){
 
@@ -76,6 +76,6 @@ void main(){
     else
     	Color = shadeColor;
 
-	FragColor = vec4(Color, 1.0);
+	gl_FragColor = vec4(Color, 1.0);
 	
 }

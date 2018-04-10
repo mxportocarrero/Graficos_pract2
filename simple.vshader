@@ -1,9 +1,9 @@
-#version 150
+#version 120
 
-in vec3 VertexPosition;
-in vec3 VertexNormal;
+attribute vec3 VertexPosition;
+attribute vec3 VertexNormal;
 
-out vec3 LightIntensity;
+varying vec3 LightIntensity;
 
 struct LightInfo{
     vec4 Position;

@@ -1,11 +1,11 @@
-#version 150
+#version 120
 
-in vec3 VertexColor;
-in vec3 VertexPosition;
+attribute vec3 VertexColor;
+attribute vec3 VertexPosition;
 
 uniform mat4 VP;
 
-out vec3 Color;
+varying vec3 Color;
 
 void main(){
     Color = VertexColor;

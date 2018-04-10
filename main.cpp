@@ -20,7 +20,7 @@ enum Buffer_IDs{ArrayBuffer,NormalBuffer,extraBuffer,NumBuffers};
 enum Attrib_IDs{vPos = 0,nPos = 1};
 enum eAttrib_IDs{eColor = 0, ePos = 1,eNormal = 2};
 
-GLuint program1,program2,program3,curr_Program;       /* shader program object id */
+GLuint program1,program2,program3,program4,curr_Program;       /* shader program object id */
 
 
 
@@ -193,6 +193,7 @@ void init(){
     program1 = LoadShaders("simple.vshader","simple.fshader");
     program2 = LoadShaders("perFragment.vshader","perFragment.fshader");
     program3 = LoadShaders("extra.vshader","extra.fshader");
+    program4 = LoadShaders("simple1.vshader","simple1.fshader");
 
 
     glGenVertexArrays(NumVAOs,VAOs);
