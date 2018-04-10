@@ -529,8 +529,8 @@ int main(int argc, char ** argv){
 
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(windowDIM,windowDIM);
-    glutInitContextVersion(3,0);
-    glutInitContextProfile(GLUT_CORE_PROFILE);
+    //glutInitContextVersion(3,0);
+    //glutInitContextProfile(GLUT_CORE_PROFILE);
     glutCreateWindow(filename);
 
     if(glewInit()){
