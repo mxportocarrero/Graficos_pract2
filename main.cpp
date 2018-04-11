@@ -193,7 +193,7 @@ void init(){
     program1 = LoadShaders("simple.vshader","simple.fshader");
     program2 = LoadShaders("perFragment.vshader","perFragment.fshader");
     program3 = LoadShaders("extra.vshader","extra.fshader");
-    program4 = LoadShaders("simple1.vshader","simple1.fshader");
+    //program4 = LoadShaders("simple1.vshader","simple1.fshader");
 
 
     glGenVertexArrays(NumVAOs,VAOs);
@@ -279,6 +279,8 @@ void display(){
     uniformRegister(Fog.color, curr_Program,"Fog.color");
 
     uniformRegister(fogType,curr_Program,"Fog_Type");
+
+    uniformRegister(isLightingEnabled,curr_Program,"isLightingEnabled");
 
 
     glBindBuffer(GL_ARRAY_BUFFER,Buffers[ArrayBuffer]);

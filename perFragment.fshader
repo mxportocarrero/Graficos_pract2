@@ -32,6 +32,7 @@ uniform FogInfo Fog;
 
 uniform int Fog_Type;
 
+uniform int isLightingEnabled;
 //out vec4 FragColor;
 
 vec3 ads(int lightIndex, vec4 position, vec3 norm){
@@ -50,9 +51,11 @@ vec3 ads(int lightIndex, vec4 position, vec3 norm){
 
 void main(){
 	vec3 shadeColor = vec3(0.0);
-    for(int i = 0; i < 2; i++){
-        shadeColor += ads(i,Position,Normal);
-    }
+    if(isLightingEnabled == 1)
+        for(int i = 0; i < 2; i++)
+            shadeColor += ads(i,Position,Normal);
+    else
+        shadeColor = Material.Kd;
 
     vec3 Color;
     if(Fog_Type != 0){

@@ -10,6 +10,8 @@ uniform mat3 NormalMatrix;
 
 uniform mat4 MVP;
 
+uniform int isLightingEnabled;
+
 void main(){
 	Normal = normalize( NormalMatrix * VertexNormal);
 	Position = ModelViewMatrix * vec4(VertexPosition,1.0);

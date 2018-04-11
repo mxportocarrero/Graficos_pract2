@@ -32,7 +32,7 @@ uniform mat4 ModelViewMatrix;
 uniform mat3 NormalMatrix;
 uniform mat4 MVP;
 
-uniform int LightingEnabled;
+uniform int isLightingEnabled;
 /**
 void main(){
 	//Convertimos las normales al Camera Coords o Eye Coords
@@ -76,8 +76,11 @@ void main(){
 
     // Evaluamos la ecuación de la luz para cada fuente
     vec3 shadeColor = vec3(0.0);
-    for(int i = 0; i < 2; i++)
-        shadeColor += ads(i,eyeCoords,eyeNorm);
+    if(isLightingEnabled == 1)
+        for(int i = 0; i < 2; i++)
+            shadeColor += ads(i,eyeCoords,eyeNorm);
+    else
+        shadeColor = Material.Kd;
 
     LightIntensity = shadeColor;
 
